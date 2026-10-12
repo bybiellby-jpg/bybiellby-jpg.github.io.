@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>byte</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,6 +43,9 @@ body {
   position: fixed; inset: 0; pointer-events: none;
   background: radial-gradient(ellipse at 50% 115%, rgba(255, 31, 45, 0.26), transparent 55%),
               radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(0, 0, 0, 0.75));
+}
+body.tem-fundo .vignette {
+  background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.45));
 }
 
 /* Tela de entrada */
@@ -175,8 +174,6 @@ body {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 </style>
-</head>
-<body>
 
 <div id="bg" aria-hidden="true"></div>
 <canvas id="embers" aria-hidden="true"></canvas>
@@ -230,7 +227,6 @@ const CONFIG = {
     "programador roblox há 4 anos",
     "já contribuí pra jogos com +350M de visitas",
     "scripting em luau, do servidor ao cliente"
-    "I love Money"
   ],
   stats: [
     { valor: "4", rotulo: "anos de dev" },
@@ -248,8 +244,8 @@ const CONFIG = {
     { nome: "GitHub",  icone: "code", url: "https://github.com/bybiellby-jpg" }
   ],
   fundo: {
-    arquivo: "download (1).gif", // ex: "fundo.jpg", "fundo.gif" ou "fundo.mp4" — vazio = fundo preto com vermelho
-    escurecer: 0.45,     // 0 = imagem original, 1 = totalmente preto (ajuda o cartão a aparecer)
+    arquivo: "fundo.mp4", // ex: "fundo.jpg", "fundo.gif" ou "fundo.mp4" — vazio = fundo preto com vermelho
+    escurecer: 0.25,     // 0 = imagem original, 1 = totalmente preto (ajuda o cartão a aparecer)
     efeitos: true        // brasas e pontinhos vermelhos por cima do fundo (false = só a imagem)
   },
   musica: {
@@ -279,8 +275,10 @@ if (CONFIG.fundo.arquivo) {
   const el = /\.(mp4|webm)$/i.test(f)
     ? Object.assign(document.createElement("video"), { src: f, muted: true, loop: true, autoplay: true, playsInline: true })
     : Object.assign(new Image(), { src: f, alt: "" });
+  el.addEventListener("error", () => console.warn("Fundo não encontrado: confira se o arquivo \"" + CONFIG.fundo.arquivo + "\" está na mesma pasta do index.html, com o nome igualzinho."));
   bg.appendChild(el);
   bg.style.setProperty("--shade", CONFIG.fundo.escurecer);
+  document.body.classList.add("tem-fundo");
   if (!CONFIG.fundo.efeitos) {
     document.querySelector(".halftone").hidden = true;
     $("embers").hidden = true;
@@ -433,5 +431,5 @@ $("gate").addEventListener("click", () => {
   play();
 }, { once: true });
 </script>
-</body>
-</html>
+
+</body></html>
